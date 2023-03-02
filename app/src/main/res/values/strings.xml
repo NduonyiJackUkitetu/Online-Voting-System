@@ -17,5 +17,6 @@
     <string name="click_to_login">Already Registered? Click Here to Login</string>
     <string name="click_to_registration">No Login? Click here to Register!</string>
     <string name="logout">Logout</string>
+    <string name="click_to_add_data">Click to add data</string>
 
 </resources>
