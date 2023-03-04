@@ -18,5 +18,10 @@
     <string name="click_to_registration">No Login? Click here to Register!</string>
     <string name="logout">Logout</string>
     <string name="click_to_add_data">Click to add data</string>
+    <string name="user">User</string>
+    <string name="manager">Manager</string>
+    <string name="role_radio_text">Role:</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
 
 </resources>

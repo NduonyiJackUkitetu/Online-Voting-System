@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,17 +28,23 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Registration extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityRegistrationBinding binding;
 
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextEmail, editTextPassword, editTextFirstName, editTextLastName;
     TextView goToLogin;
     Button registerButton;
+    RadioButton userRB, managerRB;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+
+    String userRole, fullName;
 
     @Override
     public void onStart() {
@@ -56,12 +63,33 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        editTextFirstName = findViewById(R.id.first_name);
+        editTextLastName = findViewById(R.id.last_name);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        userRB = findViewById(R.id.user_radio_button);
+        managerRB = findViewById(R.id.manager_radio_button);
         registerButton = findViewById(R.id.register_button);
         progressBar = findViewById(R.id.progressBar);
         goToLogin = findViewById(R.id.goToLogin);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        userRole = "Voter";
+
+
+        userRB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRole = "Voter";
+            }
+        });
+
+        managerRB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRole = "Manager";
+            }
+        });
 
 
         goToLogin.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +108,7 @@ public class Registration extends AppCompatActivity {
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
+                fullName = editTextFirstName.getText() + " " + editTextLastName.getText();
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(Registration.this, "Email field is empty", Toast.LENGTH_SHORT).show();
@@ -98,6 +127,8 @@ public class Registration extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    assert user != null;
+                                    storeNewUserData(user.getUid(), fullName, email, userRole);
                                     Toast.makeText(Registration.this, "Account Created", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
@@ -112,5 +143,9 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-
+    private void storeNewUserData(String userId, String fullName, String email, String userRole) {
+            User user = new User(email, fullName, userRole);
+            DatabaseReference myRef = mDatabase.getReference("users");
+            myRef.child(userId).setValue(user);
+        }
 }
