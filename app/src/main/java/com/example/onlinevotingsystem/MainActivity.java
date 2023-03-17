@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     DatabaseReference userRef;
+
+    DatabaseReference postRef;
     Button logoutButton, addDataButton;
     TextView userName;
     FirebaseUser currUser;
@@ -93,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
             //userName.setText("Hello " + currUser.getEmail());
         }
 
-        addDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Write a message to the database
-                myRef.setValue("Hello, World!");
-            }
-        });
+        //addDataButton.setOnClickListener(new View.OnClickListener() {
+        //  @Override
+        //  public void onClick(View view) {
+        // Write a message to the database
+        //      myRef.setValue("Hello, World!");
+        //  }
+        //});
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText editText = findViewById(R.id.editTextPost);
                 String currentPostDescription = editText.getText().toString();
-                Post newPost = new Post(currUser.getUid(), currentPostDescription, currentPostDescription);
+                Post newPost = new Post(0,currUser.getUid(), currentPostDescription, currentPostDescription);
                 postAdapter.add(newPost);
+                StoreNewPostData(currUser.getUid(), currentPostDescription, currentPostDescription);
             }
         });
 
@@ -125,15 +128,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void addTask(View view) {
+    //    public void addTask(View view) {
+//
+//        numberOFTasks++;
+//        EditText editText = findViewById(R.id.editTextPost);
+//        String currentPostDescription = editText.getText().toString();
+//        Post newPost = new Post(0,currUser.getUid(), currentPostDescription, currentPostDescription);
+//        postAdapter.add(newPost);
+//
+//        StoreNewPostData(currUser.getUid(), currentPostDescription, currentPostDescription);
+//
+//        userName.setText("kek");
+//
+//
+//    }
+    public void StoreNewPostData(String creator_id, String title,String description){
+        DatabaseReference idRef = database.getReference().child("posts_id");
 
-        numberOFTasks++;
-        EditText editText = findViewById(R.id.editTextPost);
-        String currentPostDescription = editText.getText().toString();
-        Post newPost = new Post(currUser.getUid(), currentPostDescription, currentPostDescription);
-        postAdapter.add(newPost);
 
-        userName.setText("kek");
+        idRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int post_id = Integer.valueOf(snapshot.getValue().toString());
+                Post post = new Post(post_id, creator_id, title, description);
+                myRef = database.getReference().child("posts").child(String.valueOf(post_id));
+                myRef.setValue(post);
+                post_id++;
+                idRef.setValue(post_id);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
