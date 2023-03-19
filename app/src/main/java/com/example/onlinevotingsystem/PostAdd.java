@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdd extends AppCompatActivity{
-    EditText editText;
-    Button add_button;
+    TextInputEditText editTextTitle, editTextDesc;
+    Button add_button, back_button;
     FirebaseDatabase database;
     DatabaseReference idRef;
     DatabaseReference myRef;
@@ -50,15 +50,27 @@ public class PostAdd extends AppCompatActivity{
         myRef =  database.getReference();
 
         add_button = findViewById(R.id.addPostButton);
+        back_button = findViewById(R.id.backPostButton);
+
         currUser = auth.getCurrentUser();
 
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editText = findViewById(R.id.editTextPostTitle);
-                String title = editText.getText().toString();
-                StoreNewPostData(currUser.getUid(), title, title);
+                editTextTitle = findViewById(R.id.editTextPostTitle);
+                editTextDesc = findViewById(R.id.editTextPostDesc);
+                String title = editTextTitle.getText().toString();
+                String description = editTextDesc.getText().toString();
+                StoreNewPostData(currUser.getUid(), title, description);
 
+            }
+        });
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
