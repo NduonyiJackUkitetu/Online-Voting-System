@@ -27,6 +27,6 @@ public class Post {
         return title;
     }
     @Override public String toString()
-    { return title + " " + description;
+    { return title ;
     }
 }

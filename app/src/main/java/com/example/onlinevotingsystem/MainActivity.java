@@ -125,16 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
         postRef = database.getReference("posts");
 
-        ArrayList<String> postList = new ArrayList<>();
+        ArrayList<Post> postList = new ArrayList<>();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, postList);
+        ArrayAdapter<Post> adapter = new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, postList);
 
         postRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
-                    postList.add(post.title);
+                    postList.add(post);
                 }
                 adapter.notifyDataSetChanged();
             }
