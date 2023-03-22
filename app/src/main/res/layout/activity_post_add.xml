@@ -44,18 +44,19 @@
 
     <Button
         android:id="@+id/addPostButton"
-        android:layout_width="150dp"
-        android:layout_height="68dp"
+        android:layout_width="84dp"
+        android:layout_height="48dp"
         android:layout_marginStart="132dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="129dp"
         android:layout_marginBottom="2dp"
         android:layout_weight="1"
         android:text="Add "
-        android:textSize="24sp"
+        android:textSize="14sp"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/backPostButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -76,16 +77,18 @@
 
     <Button
         android:id="@+id/backPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="48dp"
         android:layout_marginStart="162dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="161dp"
         android:layout_marginBottom="184dp"
+        android:textSize="14sp"
         android:text="Back"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addPostButton"
         app:layout_constraintVertical_bias="1.0" />

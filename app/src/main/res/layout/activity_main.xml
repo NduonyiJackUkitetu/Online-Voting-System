@@ -17,7 +17,8 @@
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout" />
+            android:text="@string/logout"
+            app:cornerRadius="12dp" />
 
 
         <TextView
@@ -38,11 +39,12 @@
 
         <Button
             android:id="@+id/write_data"
-            android:layout_width="140dp"
+            android:layout_width="118dp"
             android:layout_height="62dp"
             android:layout_marginBottom="50sp"
             android:rotationX="0"
             android:text="@string/click_to_add_data"
+            app:cornerRadius="12dp"
             tools:visibility="visible" />
 
 
