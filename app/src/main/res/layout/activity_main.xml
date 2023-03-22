@@ -45,7 +45,8 @@
             android:rotationX="0"
             android:text="@string/click_to_add_data"
             app:cornerRadius="12dp"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            tools:ignore="VisualLintBounds" />
 
 
 
@@ -61,7 +62,8 @@
                 android:layout_height="62dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="" />
+                android:text=""
+                tools:ignore="VisualLintBounds" />
         </LinearLayout>
 
     </LinearLayout>
