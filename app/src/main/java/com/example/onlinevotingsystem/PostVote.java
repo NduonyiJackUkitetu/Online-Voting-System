@@ -29,6 +29,7 @@ public class PostVote extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
+    DatabaseReference Ref;
 
 
     @Override
@@ -43,7 +44,7 @@ public class PostVote extends AppCompatActivity {
         like_button = findViewById(R.id.likeButtonPostVote);
         dislike_button = findViewById(R.id.dislikeButtonPostVote);
 
-        post_id =  intent.getStringExtra("post_id");
+        post_id = intent.getStringExtra("post_id");
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("posts").child(post_id);
 
@@ -68,17 +69,8 @@ public class PostVote extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                myRef.child("positive_choice_counter").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int likes = Integer.valueOf(snapshot.getValue().toString());
-                        likes++;
-                        myRef.child("positive_choice_counter").setValue(likes);
-                    }@Override
-                    public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                ButtonPress(1);
 
             }
         });
@@ -86,22 +78,37 @@ public class PostVote extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                myRef.child("negative_choice_counter").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int dislikes = Integer.valueOf(snapshot.getValue().toString());
-                        dislikes++;
-                        myRef.child("negative_choice_counter").setValue(dislikes);
-                    }@Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+            ButtonPress(2);
 
             }
         });
+    }
 
 
 
+    public void ButtonPress(int choice)
+    {
+        String text = "";
+        if (choice == 1)
+        {
+            text = "choice_one_counter";
+        }
+        else if (choice == 2)
+        {
+            text = "choice_two_counter";
+        }
+        String finalText = text;
+        Ref = myRef.child(text);
+        Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int likes = Integer.valueOf(snapshot.getValue().toString());
+                likes++;
+                Ref.setValue(likes);
+            }@Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
