@@ -16,3 +16,11 @@ public class User {
     }
 
 }
+
+
+//creatorID
+//Title
+//Description
+//VotingChoice1 and VotingChoice2
+//Choice1Counter and Choice2Counter
+// List of IDS that have voted

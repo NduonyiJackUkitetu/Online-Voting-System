@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.onlinevotingsystem.Post;
@@ -28,10 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostAdd extends AppCompatActivity{
-    TextInputEditText editTextTitle, editTextDesc;
+    TextInputEditText editTextTitle, editTextDesc, editTextOp1, editTextOp2;
     Button add_button, back_button;
+
+    ProgressBar progressBar;
     FirebaseDatabase database;
     DatabaseReference idRef;
     DatabaseReference myRef;
@@ -51,17 +55,25 @@ public class PostAdd extends AppCompatActivity{
 
         add_button = findViewById(R.id.addPostButton);
         back_button = findViewById(R.id.backPostButton);
+        progressBar = findViewById(R.id.progressBar);
+
+        editTextTitle = findViewById(R.id.editTextPostTitle);
+        editTextDesc = findViewById(R.id.editTextPostDesc);
+        editTextOp1 = findViewById(R.id.button_1_description);
+        editTextOp2 = findViewById(R.id.button_2_description);
+
 
         currUser = auth.getCurrentUser();
 
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextTitle = findViewById(R.id.editTextPostTitle);
-                editTextDesc = findViewById(R.id.editTextPostDesc);
-                String title = editTextTitle.getText().toString();
-                String description = editTextDesc.getText().toString();
-                StoreNewPostData(currUser.getUid(), title, description);
+                progressBar.setVisibility(View.VISIBLE);
+                String title = Objects.requireNonNull(editTextTitle.getText()).toString();
+                String description = Objects.requireNonNull(editTextDesc.getText()).toString();
+                String option_one = Objects.requireNonNull(editTextOp1.getText()).toString();
+                String option_two = Objects.requireNonNull(editTextOp2.getText()).toString();
+                StoreNewPostData(currUser.getUid(), title, description, option_one, option_two);
 
             }
         });
@@ -78,15 +90,16 @@ public class PostAdd extends AppCompatActivity{
 
     }
 
-    public void StoreNewPostData(String creator_id, String title,String description){
+    public void StoreNewPostData(String creator_id, String title,String description, String option_one, String option_two){
 
 
 
         idRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressBar.setVisibility(View.INVISIBLE);
                 int post_id = Integer.valueOf(snapshot.getValue().toString());
-                Post post = new Post(post_id, creator_id, title, description);
+                Post post = new Post(post_id, creator_id, title, description, option_one, option_two);
                 myRef = database.getReference().child("posts").child(String.valueOf(post_id));
                 myRef.setValue(post);
                 post_id++;
@@ -95,7 +108,7 @@ public class PostAdd extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
 

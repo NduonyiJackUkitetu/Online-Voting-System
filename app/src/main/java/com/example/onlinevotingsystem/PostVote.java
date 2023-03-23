@@ -47,8 +47,8 @@ public class PostVote extends AppCompatActivity {
                 Post post = snapshot.getValue(Post.class);
                 title.setText(post.title);
                 description.setText(post.description);
-                like_count.setText(String.valueOf(post.positive_choice_counter));
-                dislike_count.setText(String.valueOf(post.negative_choice_counter));
+                like_count.setText(String.valueOf(post.choice_one_counter));
+                dislike_count.setText(String.valueOf(post.choice_two_counter));
             }
 
             @Override
