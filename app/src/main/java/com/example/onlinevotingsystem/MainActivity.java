@@ -8,13 +8,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,29 +74,28 @@ public class MainActivity extends AppCompatActivity {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     User user = snapshot.getValue(User.class);
                     userName.setText(("Hello " + user.fullName + "!"));
-                }
-                else
-                {
+                } else {
                     Log.w("loadPost:onDataChange", "The data was not found");
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w( "loadPost:onCancelled", error.toException());            }
+                Log.w("loadPost:onCancelled", error.toException());
+            }
         });
 
 
-        if(currUser == null){
+        if (currUser == null) {
             //if no current user is found, then start the login activity
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
-        }
-        else{
+        } else {
             //userName.setText(currUser.getEmail());
             //userName.setText("Hello " + currUser.getEmail());
         }
@@ -110,17 +113,16 @@ public class MainActivity extends AppCompatActivity {
         addDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),PostAdd.class );
+                Intent intent = new Intent(getApplicationContext(), PostAdd.class);
                 startActivity(intent);
                 finish();
                 //EditText editText = findViewById(R.id.editTextPost);
                 //String currentPostDescription = editText.getText().toString();
-               // Post newPost = new Post(0,currUser.getUid(), currentPostDescription, currentPostDescription);
+                // Post newPost = new Post(0,currUser.getUid(), currentPostDescription, currentPostDescription);
                 //postAdapter.add(newPost);
-               // StoreNewPostData(currUser.getUid(), currentPostDescription, currentPostDescription);
+                // StoreNewPostData(currUser.getUid(), currentPostDescription, currentPostDescription);
             }
         });
-
 
 
         postRef = database.getReference("posts");
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         postRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
                     postList.add(post);
                 }
@@ -149,11 +151,19 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, adapter.getItem(i).title, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), PostVote.class);
+                intent.putExtra("post_id", String.valueOf(i));
+                startActivity(intent);
+                finish();
+            }
+        });
 
-    }
 
-
-    //    public void addTask(View view) {
+        //    public void addTask(View view) {
 //
 //        numberOFTasks++;
 //        EditText editText = findViewById(R.id.editTextPost);
@@ -168,4 +178,5 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 
+    }
 }
