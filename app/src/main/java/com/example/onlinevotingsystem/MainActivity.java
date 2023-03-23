@@ -149,7 +149,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
 
+
     }
+
+
     //    public void addTask(View view) {
 //
 //        numberOFTasks++;
