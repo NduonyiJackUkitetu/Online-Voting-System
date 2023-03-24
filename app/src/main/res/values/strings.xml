@@ -30,5 +30,6 @@
     <string name="add_a_voting_topic">Add a Voting Topic</string>
     <string name="option_2">Option 2</string>
     <string name="option_1">Option 1</string>
+    <string name="enter_data_here" />
 
 </resources>

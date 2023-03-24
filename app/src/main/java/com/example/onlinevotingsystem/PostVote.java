@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class PostVote extends AppCompatActivity {
     TextView like_count;
     TextView dislike_count;
     String post_id;
+
+    Button back_button_vote;
 
     int likes, dislikes;
 
@@ -43,6 +46,7 @@ public class PostVote extends AppCompatActivity {
         dislike_count = findViewById(R.id.postVoteDislikeCount);
         like_button = findViewById(R.id.likeButtonPostVote);
         dislike_button = findViewById(R.id.dislikeButtonPostVote);
+        back_button_vote = findViewById(R.id.backPostButtonT);
 
         post_id = intent.getStringExtra("post_id");
         database = FirebaseDatabase.getInstance();
@@ -80,6 +84,15 @@ public class PostVote extends AppCompatActivity {
 
             ButtonPress(2);
 
+            }
+        });
+
+        back_button_vote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
