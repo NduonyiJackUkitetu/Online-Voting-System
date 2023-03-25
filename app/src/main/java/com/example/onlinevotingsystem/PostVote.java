@@ -74,6 +74,9 @@ public class PostVote extends AppCompatActivity {
                 like_count.setText(String.valueOf(post.choice_one_counter));
                 dislike_count.setText(String.valueOf(post.choice_two_counter));
 
+                String op1= String.valueOf(post.choice_one);
+                String op2= String.valueOf(post.choice_two);
+
                 int like_C = Integer.parseInt(like_count.getText().toString());
                 int dislike_C = Integer.parseInt(dislike_count.getText().toString());
 
@@ -81,8 +84,8 @@ public class PostVote extends AppCompatActivity {
                 pieChart= findViewById(R.id.pieChart);
 
                 ArrayList<PieEntry> figure= new ArrayList<>();
-                figure.add(new PieEntry(like_C,"Option 1"));
-                figure.add(new PieEntry(dislike_C,"Option 2"));
+                figure.add(new PieEntry(like_C,op1));
+                figure.add(new PieEntry(dislike_C,op2));
 
                 PieDataSet pieDataSet= new PieDataSet(figure, "votes");
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
