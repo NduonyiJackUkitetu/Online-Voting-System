@@ -9,19 +9,21 @@
 
     <TextView
         android:id="@+id/postVoteTitle"
-        android:text="Title"
-        android:textSize="22sp"
-        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="#4A148C"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/postVoteDesc"
-        android:text="Description"
-        android:textSize="16sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:text="Description"
+        android:textColor="#000000"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,6 +47,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="0"
+            android:textColor="#4A148C"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -64,6 +67,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="0"
+            android:textColor="#4A148C"
             android:textSize="16sp"
             android:textStyle="bold" />
 
