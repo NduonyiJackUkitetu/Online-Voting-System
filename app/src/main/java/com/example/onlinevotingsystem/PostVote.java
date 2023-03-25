@@ -4,17 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PostVote extends AppCompatActivity {
     TextView title;
@@ -25,7 +33,11 @@ public class PostVote extends AppCompatActivity {
     TextView dislike_count;
     String post_id;
 
+    PieChart pieChart;
+
     Button back_button_vote;
+
+    int like_C, dislike_C;
 
     int likes, dislikes;
 
@@ -61,6 +73,28 @@ public class PostVote extends AppCompatActivity {
                 description.setText(post.description);
                 like_count.setText(String.valueOf(post.choice_one_counter));
                 dislike_count.setText(String.valueOf(post.choice_two_counter));
+
+                int like_C = Integer.parseInt(like_count.getText().toString());
+                int dislike_C = Integer.parseInt(dislike_count.getText().toString());
+
+                //just added a pie chart to make it look cool
+                pieChart= findViewById(R.id.pieChart);
+
+                ArrayList<PieEntry> figure= new ArrayList<>();
+                figure.add(new PieEntry(like_C,"Option 1"));
+                figure.add(new PieEntry(dislike_C,"Option 2"));
+
+                PieDataSet pieDataSet= new PieDataSet(figure, "votes");
+                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieDataSet.setValueTextColor(Color.BLACK);
+                pieDataSet.setValueTextSize(16f);
+
+                PieData pieData= new PieData(pieDataSet);
+
+                pieChart.setData(pieData);
+                pieChart.getDescription().setEnabled(false);
+                pieChart.setCenterText("Votes");
+                pieChart.animateY(2000);
             }
 
             @Override
@@ -99,6 +133,8 @@ public class PostVote extends AppCompatActivity {
 
 
 
+
+
     public void ButtonPress(int choice)
     {
         String text = "";
@@ -117,11 +153,21 @@ public class PostVote extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int likes = Integer.valueOf(snapshot.getValue().toString());
                 likes++;
+
                 Ref.setValue(likes);
             }@Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+
+
+
+
+
     }
-}
+    }
+
+
+
