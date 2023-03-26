@@ -1,4 +1,6 @@
 package com.example.onlinevotingsystem;
+import java.util.ArrayList;
+
 
 public class Post {
 

@@ -73,6 +73,8 @@ public class PostAdd extends AppCompatActivity{
                 String description = Objects.requireNonNull(editTextDesc.getText()).toString();
                 String option_one = Objects.requireNonNull(editTextOp1.getText()).toString();
                 String option_two = Objects.requireNonNull(editTextOp2.getText()).toString();
+
+
                 StoreNewPostData(currUser.getUid(), title, description, option_one, option_two);
 
             }
@@ -99,9 +101,20 @@ public class PostAdd extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 progressBar.setVisibility(View.INVISIBLE);
                 int post_id = Integer.valueOf(snapshot.getValue().toString());
+                ArrayList<String> voterList = new ArrayList<String>();
+
                 Post post = new Post(post_id, creator_id, title, description, option_one, option_two);
+
                 myRef = database.getReference().child("posts").child(String.valueOf(post_id));
                 myRef.setValue(post);
+
+                Voters voters = new Voters(voterList);
+                myRef.child("voters").setValue(voters);
+
+
+
+
+
                 post_id++;
                 idRef.setValue(post_id);
             }

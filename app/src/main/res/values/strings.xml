@@ -31,5 +31,6 @@
     <string name="option_2">Option 2</string>
     <string name="option_1">Option 1</string>
     <string name="enter_data_here" />
+    <string name="you_have_already_voted_on_this_topic">You have already voted on this topic</string>
 
 </resources>
