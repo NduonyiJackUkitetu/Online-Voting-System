@@ -54,12 +54,15 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
 
         <Button
             android:id="@+id/likeButtonPostVote"
             android:layout_marginTop="8dp"
-            android:layout_width="150dp"
+            android:textSize="10dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:text="@string/option_2"
             />
@@ -89,7 +92,8 @@
         <Button
             android:id="@+id/dislikeButtonPostVote"
             android:layout_marginTop="8dp"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
+            android:textSize="10dp"
             android:layout_height="50dp"
             android:text="@string/option_2"
             />
@@ -123,7 +127,7 @@
         android:layout_marginTop="20dp"
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="220dp" />
 
 
 
