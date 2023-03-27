@@ -132,11 +132,12 @@ public class PostVote extends AppCompatActivity {
                 PieDataSet pieDataSet= new PieDataSet(figure, "votes");
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 pieDataSet.setValueTextColor(Color.BLACK);
-                pieDataSet.setValueTextSize(16f);
+                pieDataSet.setValueTextSize(12f);
 
                 PieData pieData= new PieData(pieDataSet);
 
                 pieChart.setData(pieData);
+                pieChart.setEntryLabelColor(Color.DKGRAY);
                 pieChart.getDescription().setEnabled(false);
                 pieChart.setCenterText("Votes");
                 pieChart.animateY(2000);
