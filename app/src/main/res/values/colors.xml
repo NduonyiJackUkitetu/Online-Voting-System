@@ -10,4 +10,10 @@
     <color name="honey">#E79E31</color>
     <color name="lavendar">#9F73D1</color>
     <color name="yellow_pastel">#F3FF88</color>
+    <color name="gray_app">#495867</color>
+    <color name="d_blue_app">#577399</color>
+    <color name="l_blue_app">#BDD5EA</color>
+    <color name="white_app">#F7F7FF</color>
+    <color name="red_app">#FE5F55</color>
+    <color name="b_blue_app">#5E52FE</color>
 </resources>

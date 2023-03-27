@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PostAdd extends AppCompatActivity{
-    TextInputEditText editTextTitle, editTextDesc, editTextOp1, editTextOp2;
+    EditText editTextTitle, editTextDesc, editTextOp1, editTextOp2;
     Button add_button, back_button;
 
     ProgressBar progressBar;
@@ -59,8 +59,8 @@ public class PostAdd extends AppCompatActivity{
 
         editTextTitle = findViewById(R.id.editTextPostTitle);
         editTextDesc = findViewById(R.id.editTextPostDesc);
-        editTextOp1 = findViewById(R.id.button_1_description);
-        editTextOp2 = findViewById(R.id.button_2_description);
+        editTextOp1 = findViewById(R.id.option_one_text);
+        editTextOp2 = findViewById(R.id.option_two_text);
 
 
         currUser = auth.getCurrentUser();
@@ -74,8 +74,8 @@ public class PostAdd extends AppCompatActivity{
                 String option_one = Objects.requireNonNull(editTextOp1.getText()).toString();
                 String option_two = Objects.requireNonNull(editTextOp2.getText()).toString();
 
-
                 StoreNewPostData(currUser.getUid(), title, description, option_one, option_two);
+
 
             }
         });
@@ -111,9 +111,12 @@ public class PostAdd extends AppCompatActivity{
                 Voters voters = new Voters(voterList);
                 myRef.child("voters").setValue(voters);
 
-
                 post_id++;
                 idRef.setValue(post_id);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override

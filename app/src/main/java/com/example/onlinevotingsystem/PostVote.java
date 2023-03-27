@@ -50,6 +50,11 @@ public class PostVote extends AppCompatActivity {
     DatabaseReference myRef, voterRef;
     DatabaseReference Ref;
 
+    public static final int[] PIECHART_COLORS = {
+            Color.rgb(254, 95, 85), Color.rgb(94, 82, 254), Color.rgb(245, 199, 0),
+            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +135,7 @@ public class PostVote extends AppCompatActivity {
                 figure.add(new PieEntry(dislike_C,op2));
 
                 PieDataSet pieDataSet= new PieDataSet(figure, "votes");
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieDataSet.setColors(PIECHART_COLORS);
                 pieDataSet.setValueTextColor(Color.BLACK);
                 pieDataSet.setValueTextSize(16f);
 
