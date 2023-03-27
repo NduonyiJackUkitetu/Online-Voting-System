@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     User user = snapshot.getValue(User.class);
                     userName.setText(("Hello " + user.fullName + "!"));
+
+                    if(Objects.equals(user.role, "Voter")){
+                        addDataButton.setVisibility(View.INVISIBLE);
+                    }
                 } else {
                     Log.w("loadPost:onDataChange", "The data was not found");
                 }

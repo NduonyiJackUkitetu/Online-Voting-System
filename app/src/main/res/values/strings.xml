@@ -17,7 +17,7 @@
     <string name="click_to_login">Already Registered? Click Here to Login</string>
     <string name="click_to_registration">No Login? Click here to Register!</string>
     <string name="logout">Logout</string>
-    <string name="click_to_add_data">Click to add data</string>
+    <string name="click_to_add_data">Click to add a topic</string>
     <string name="user">User</string>
     <string name="manager">Manager</string>
     <string name="role_radio_text">Role:</string>
@@ -32,5 +32,6 @@
     <string name="option_1">Option 1</string>
     <string name="enter_data_here" />
     <string name="you_have_already_voted_on_this_topic">You have already voted on this topic</string>
+    <string name="select_one_of_the_topics_below_to_vote">Select one of the topics below to vote</string>
 
 </resources>

@@ -110,15 +110,14 @@ public class PostVote extends AppCompatActivity {
                 description.setText(post.description);
                 like_count.setText(String.valueOf(post.choice_one_counter));
                 dislike_count.setText(String.valueOf(post.choice_two_counter));
-
-                if(!String.valueOf((post.choice_one)).equals("") || !String.valueOf((post.choice_two)).equals("")){
-                    like_button.setText(String.valueOf(post.choice_one));
-                    dislike_button.setText(String.valueOf(post.choice_two));
-                }
-
+                like_button.setText(String.valueOf(post.choice_one));
+                dislike_button.setText(String.valueOf(post.choice_two));
 
                 String op1= String.valueOf(post.choice_one);
                 String op2= String.valueOf(post.choice_two);
+
+                option_one_text.setText(op1);
+                option_two_text.setText(op2);
 
                 int like_C = Integer.parseInt(like_count.getText().toString());
                 int dislike_C = Integer.parseInt(dislike_count.getText().toString());

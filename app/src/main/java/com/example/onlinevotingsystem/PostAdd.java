@@ -112,9 +112,6 @@ public class PostAdd extends AppCompatActivity{
                 myRef.child("voters").setValue(voters);
 
 
-
-
-
                 post_id++;
                 idRef.setValue(post_id);
             }
